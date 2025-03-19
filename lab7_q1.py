@@ -3,15 +3,19 @@ from scipy.stats import poisson
 
 df = pd.read_csv('traffic_data.csv')
 
-# def get_congestion_prob(df):
-
-#     vehicle_count = df.groupby('Weekday').count()
+def get_congestion_prob(df):
+    total_cars = df.groupby('Weekday').size()
+    total_mins = df.groupby('Weekday')['Second'].max() / 60
+    car_per_minute = (total_cars / total_mins).round(4)
     
-#     vehicleCountDF = vehicle_count[['Weight_kg']]
-#     vehicleCountDF = vehicleCountDF.rename(columns={"Weight_kg": "Count"})
+    congestion_prob = 1 - poisson.cdf(5,car_per_minute).round(4)
+    
+    result = pd.DataFrame({
+        'Weekday': car_per_minute.index,
+        'car_per_minute': car_per_minute.values,
+        'congestion_prob': congestion_prob
+    })
+    
+    return result
 
-
-#     return vehicleCountDF['Count'] / (df.groupby('Weekday')['Second'].mean() / 60)
-
-# print(get_congestion_prob(df))
-
+print(get_congestion_prob(df))
