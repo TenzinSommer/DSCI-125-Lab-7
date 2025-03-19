@@ -23,6 +23,11 @@ def get_frequency(bet, hours):
 
 	return np.mean(hour_wins)
 
+def get_win_range_prob(bet, hours, low, high):
+	freq = get_frequency(bet, hours)
+	return (poisson.cdf(freq, low) - poisson.cdf(freq, high)).round(4)
+
+
 bet = {
     '1st12': 1,
     '2nd12': 0,
@@ -30,5 +35,10 @@ bet = {
     'even': 0,
     'odd': 0,
 }
-print(f'expected: ~38.89\
-	  \nactual:{get_frequency(bet, 10000)}')
+print(f'get_frequency:\
+	  \nexpected: ~38.89\
+	  \nactual:{get_frequency(bet, 10000)}\n')
+
+print(f'get_win_range_prob:\
+	  \nexpected: ~0.0477\
+	  \nactual:{get_win_range_prob(bet, 10000, 50, 100)}\n')
