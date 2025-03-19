@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 from scipy.stats import *
 from random import random
@@ -26,7 +25,6 @@ def get_frequency(bet, hours):
 def get_win_range_prob(bet, hours, low, high):
 	freq = get_frequency(bet, hours)
 	return (poisson.cdf(freq, low) - poisson.cdf(freq, high)).round(4)
-
 
 bet = {
     '1st12': 1,

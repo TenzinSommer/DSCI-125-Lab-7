@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from scipy.stats import pearsonr
 
-df = pd.read_csv('traffic_data_f1.csv')
+
 
 def get_correlation(df):
     result = []
@@ -16,5 +16,3 @@ def get_correlation(df):
     
     return pd.DataFrame(result, columns=["type", "speed", "factor", "correlation"])
 
-
-print(get_correlation(df))

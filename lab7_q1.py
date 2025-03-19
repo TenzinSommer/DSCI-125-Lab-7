@@ -1,7 +1,6 @@
 import pandas as pd
 from scipy.stats import poisson
 
-df = pd.read_csv('traffic_data.csv')
 
 def get_congestion_prob(df):
     total_cars = df.groupby('Weekday').size()
@@ -17,5 +16,3 @@ def get_congestion_prob(df):
     })
     
     return result
-
-print(get_congestion_prob(df))
